@@ -3,18 +3,30 @@ import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from './../common/Container';
 import EvCards from './../common/home/EvCards';
+import Loading from './../common/Loading';
+
 
 export default function Home () {
-  const dispatch = useDispatch();
-  const events = useSelector(state => state.home.events)
+  const dispatch = useDispatch()
+  const fetchedEvents = useSelector(state => state.home.fetchedEvents)
 
-  useEffect(() => {
-    fetch('https://api.kayzr.com/api/tournaments/upcoming')
+  const getEvents = () => {
+    return fetch('https://api.kayzr.com/api/tournaments/upcoming')
     .then(res => res.json())
-    .then(res => {
-      dispatch({type: 'SAVE_EVENTS', events: res})
-    })
-  }, [])
+  }
+
+
+  if(!fetchedEvents) {
+    return (
+      <Container>
+        <Loading
+          startAsync={getEvents}
+          onFinish={(res) => dispatch({type: 'SAVE_EVENTS', events: res})}
+          onError={console.warn}
+        />
+      </Container>
+    )
+  }
 
   return (
     <Container>
@@ -22,6 +34,3 @@ export default function Home () {
     </Container>
   )
 }
-
-const styles = StyleSheet.create({
-})

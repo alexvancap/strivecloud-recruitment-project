@@ -1,16 +1,18 @@
 const initialState = {
-  events: []
+  events: [],
+  fetchedEvents: false,
 }
 
-const reducer = (state = initialState, action) => {
+const homeReducer = (state = initialState, action) => {
   switch(action.type){
     case 'SAVE_EVENTS':
-        return {
-          ...state,
-          events: action.events
-        }
+      return {
+        ...state,
+        events: action.events,
+        fetchedEvents: true
+      }
     default: return state
   }
 }
 
-export default reducer;
+export default homeReducer;

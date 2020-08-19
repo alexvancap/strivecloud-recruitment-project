@@ -1,8 +1,9 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function HomeCard (props) {
   const event = props.event;
+  
 
   return (
     <View style={ styles.container }>
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: '1%'
+    marginTop: '1%',
+    fontFamily: 'Baloo-Reg'
   }
 })

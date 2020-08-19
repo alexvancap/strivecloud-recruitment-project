@@ -1,13 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import BottomNavigation from './src/components/common/navigation/BottomNavigation';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import BottomNavigation from './src/components/common/navigation/BottomNavigation';
 import store from './src/components/redux';
+import getFonts from './src/hooks/getFonts'
 
+getFonts.then(() => {
+  console.log('loaded fonts')
+})
 
 export default function App() {
   return (
@@ -21,12 +23,3 @@ export default function App() {
     </Provider>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
