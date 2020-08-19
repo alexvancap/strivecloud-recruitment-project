@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from './../common/Container';
+import EvCards from './../common/home/EvCards';
 
 export default function Home () {
-  const state = useSelector(state => state.home.events)
   const dispatch = useDispatch();
+  const events = useSelector(state => state.home.events)
 
   useEffect(() => {
     fetch('https://api.kayzr.com/api/tournaments/upcoming')
@@ -17,7 +18,10 @@ export default function Home () {
 
   return (
     <Container>
-      <Text>Home</Text>
+      <EvCards />
     </Container>
   )
 }
+
+const styles = StyleSheet.create({
+})

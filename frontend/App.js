@@ -8,11 +8,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import store from './src/components/redux';
 
+
 export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider >
-        <SafeAreaView style={{flex: 0, backgroundColor: '#260a91'}} />
+        <SafeAreaView style={{backgroundColor: '#260a91', marginBottom: -30}} />
           < NavigationContainer>
             <BottomNavigation />
           </ NavigationContainer>
@@ -21,11 +22,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

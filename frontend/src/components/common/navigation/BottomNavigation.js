@@ -1,7 +1,6 @@
-
+// dit component zorgt voor het menu onderaan
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Profile from '../../pages/Profile';
 import Search from '../../pages/Search';
