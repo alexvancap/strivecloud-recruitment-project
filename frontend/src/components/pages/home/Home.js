@@ -15,7 +15,6 @@ export default function Home (props) {
     .then(res => res.json())
   }
 
-
   if(!fetchedEvents) {
     return (
       <Container>

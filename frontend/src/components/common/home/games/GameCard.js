@@ -13,6 +13,7 @@ export default function GameCard ({gameName}) {
   const eventsForGame = getEventsByGameName(gameName, events);
   const amountOfPlayers = getAmountOfPlayers(eventsForGame);
   
+  console.log(gameName)
 
   return (
     <TouchableOpacity 

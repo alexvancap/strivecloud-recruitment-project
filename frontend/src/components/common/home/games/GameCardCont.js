@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import GameCard from './GameCard';
 
 
@@ -13,10 +13,12 @@ export default function GameCardCont () {
 
   const handleRefresh = () => {
     setRefreshing(true)
-    setTimeout(() => {
+    fetch('https://api.kayzr.com/api/tournaments/upcoming')
+    .then(res => res.json())
+    .then(res => {
       setRefreshing(false)
-      console.log('refreshing')
-    }, 500)
+      dispatch({type: 'SAVE_EVENTS', events: res})
+    })
   }
   
   useEffect(() => {
