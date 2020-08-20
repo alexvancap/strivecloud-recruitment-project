@@ -4,6 +4,7 @@ import Home from '../../pages/home/Home';
 import LogoTitle from './LogoTitle';
 import { Button } from 'react-native';
 import GameList from '../../pages/home/GameList';
+import EventList from './../../pages/home/EventList';
 import Profile from '../../pages/Profile';
 
 
@@ -31,11 +32,25 @@ export default function HomeNavigation (props) {
         name="GamePage" 
         component={GameList} 
         options={{
-          title: 'GamePage',
+          title: 'Games',
           headerTitle: props => <LogoTitle {...props} />,
           headerStyle: {
             backgroundColor: '#260a91',
             height: 80,
+            shadowColor: 'transparent'
+          }
+        }}
+      />
+      <Stack.Screen 
+        name="EventList" 
+        component={EventList} 
+        options={{
+          title: 'Events',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerStyle: {
+            backgroundColor: '#260a91',
+            height: 80,
+            shadowColor: 'transparent'
           }
         }}
       />

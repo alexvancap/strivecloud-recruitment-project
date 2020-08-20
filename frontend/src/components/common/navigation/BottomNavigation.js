@@ -4,7 +4,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Profile from '../../pages/Profile';
 import Search from '../../pages/Search';
-import HomeNavigation from './../navigation/homeNavigation';
+import HomeNavigation from './homeNavigation';
 
 
 const Tab = createBottomTabNavigator();

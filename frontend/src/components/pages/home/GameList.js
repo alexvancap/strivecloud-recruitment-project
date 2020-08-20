@@ -1,38 +1,36 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import getUniqueEventNames from '../../../helperfunctions/getUniqueEventNames';
+import GameData from '../../common/home/gameList/GameData';
+import GameListCard from '../../common/home/gameList/GameListCard';
 import { Container } from '../../common/styles';
 import Header from '../../common/styles/Header';
 
-
 export default function GanePage(props) {
-  const gameName = props.route.params.gameName
+  const { params } = props.route;
+  const uniqueEvents = getUniqueEventNames(params.gameEvents);
   return (
     <Container>
-      <Header>{gameName}</Header>
-      <View style={styles.gameData}>
-        <View>
-
-        </View>
-      </View>
-      <View style={styles.gamesCont}>
-
-      </View>
+      <Header>{ params.gameName }</Header>
+      <GameData playerAm={ params.amountOfPlayers } events={ params.gameEvents } />
+      <ScrollView style={styles.gamesCont}>
+        {
+          uniqueEvents.map(event => 
+            <GameListCard 
+              key={event} 
+              navigation={props.navigation} 
+              eventName={event}
+              gameEvents={params.gameEvents}
+            />)
+        }
+      </ScrollView>
     </Container>
   )
 }
 const styles = StyleSheet.create({
-  gameData: {
-    height: '10%',
-    width: '95%',
-    marginTop: '3%',
-    marginBottom: '3%',
-    borderRadius: 5,
-    backgroundColor: 'blue'
-  },
   gamesCont: {
     flex: 1,
     width: '95%',
-    backgroundColor: 'red',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   }

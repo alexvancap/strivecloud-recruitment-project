@@ -10,9 +10,9 @@ export default function Home (props) {
   const dispatch = useDispatch()
   const fetchedEvents = useSelector(state => state.home.fetchedEvents)
 
-  const getEvents = () => {
-    return fetch('https://api.kayzr.com/api/tournaments/upcoming')
-    .then(res => res.json())
+  const getEvents = async () => {
+    const res = await fetch('https://api.kayzr.com/api/tournaments/upcoming');
+    return await res.json();
   }
 
   if(!fetchedEvents) {

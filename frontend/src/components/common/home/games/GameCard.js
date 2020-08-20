@@ -12,8 +12,7 @@ export default function GameCard ({gameName}) {
   const events = useSelector(state => state.home.events);
   const eventsForGame = getEventsByGameName(gameName, events);
   const amountOfPlayers = getAmountOfPlayers(eventsForGame);
-  
-  console.log(gameName)
+
 
   return (
     <TouchableOpacity 

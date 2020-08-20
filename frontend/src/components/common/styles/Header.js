@@ -5,10 +5,10 @@ export default function Header(props) {
   return (
     <View style={styles.headerCont}>
        <Text style={styles.text}>
-      {
-        props.children
-      }
-    </Text>
+        {
+          props.children
+        }
+      </Text>
     </View>
   )
 }
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: '100%',
     minHeight: '13%',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#320EC4',
     borderBottomRightRadius: 7,
     borderBottomLeftRadius: 7
   },
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Baloo-Bold',
     fontSize: 25,
     textDecorationLine: 'underline',
-    color: '#18075E'
+    color: '#fff'
   }
 })
