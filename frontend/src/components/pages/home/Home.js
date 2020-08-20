@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import Container from './../common/Container';
-import EvCards from './../common/home/EvCards';
-import Loading from './../common/Loading';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import GameCardCont from '../../common/home/games/GameCardCont';
+import SearchBar from '../../common/home/SearchBar';
+import Loading from '../../common/Loading';
+import { Container } from '../../common/styles';
 
 
-export default function Home () {
+export default function Home (props) {
   const dispatch = useDispatch()
   const fetchedEvents = useSelector(state => state.home.fetchedEvents)
 
@@ -30,7 +30,8 @@ export default function Home () {
 
   return (
     <Container>
-      <EvCards />
+      <SearchBar />
+      <GameCardCont />
     </Container>
   )
 }

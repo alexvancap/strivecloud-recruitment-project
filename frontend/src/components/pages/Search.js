@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import Container from './../common/Container';
+import Container from './../common/styles/Container';
 
 
 export default function Search() {

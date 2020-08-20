@@ -4,7 +4,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Profile from '../../pages/Profile';
 import Search from '../../pages/Search';
-import Home from './../../pages/Home';
+import HomeNavigation from './../navigation/homeNavigation';
 
 
 const Tab = createBottomTabNavigator();
@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomNavigation () {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: '#260a91',
         tabStyle: {height: 65},
@@ -21,7 +21,7 @@ export default function BottomNavigation () {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeNavigation}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (

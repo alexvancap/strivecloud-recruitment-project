@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import Container from './../common/Container';
-
-
+import { Container } from '../common/styles';
 
 export default function Profile() {
   return (
