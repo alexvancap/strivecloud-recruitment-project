@@ -1,19 +1,26 @@
-import React from 'react'
-import Container from './../../common/styles/Container';
-import Header from '../../common/styles/Header';
-import EventContainer from './../../common/home/events/EventContainer';
-import EventCard from './../../common/home/events/EventCard'
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import Header from '../../common/styles/Header';
+import EventCard from './../../common/home/events/EventCard';
+import Container from './../../common/styles/Container';
 
 export default function GanePage(props) {
-  const { eventName, gameEvents } = props.route.params
+  const { eventName, gameEvents } = props.route.params;
+  const [ filteredEvents, setFilteredEvents ] = useState([]);
+  
+  useEffect(() => {
+    setFilteredEvents(() => 
+      gameEvents.filter((event) =>  event.name === eventName)
+    )
+  }, [gameEvents])
+
   return (
     <Container>
       <Header>{ eventName } </Header>
       <ScrollView style={styles.scrollView}>
         <View style={styles.gamesCont}>
         {
-          gameEvents.map(event => <EventCard key={event._id} event={event}/>)
+          filteredEvents.map(event => <EventCard key={event._id} event={event}/>)
         }
         </View>
       </ScrollView>

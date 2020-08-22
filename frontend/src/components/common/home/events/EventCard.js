@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet, Image, View } from 'react-native';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+import CardData from './CardData';
+
+dayjs.extend(relativeTime)
 
 export default function EventCard(props) {
   const [event, setevent] = useState(null);
-  const { _id } = props.event;
+  const [currentDate, setDate] = useState(dayjs());
+  const { _id, dateStart } = props.event;
 
-  const getUri = () => {
-    if(event.images[3])
-      return event.images[3].url
-    else if(event.images[1])
-      return event.images[1]
-    else
-      return '/#'
-  }
+  useEffect(() => {
+    const updateSeconds = setInterval(() => {
+      setDate(currentDate.add(1, 'second'))
+    }, 1000)
+    return clearInterval(updateSeconds);
+  }, [])
+
 
   useEffect(() => {
     if(!event)
       fetch(`https://api.kayzr.com/api/tournaments/${_id}`)
       .then(res => res.json())
       .then(res => setevent(res))
-    else
-      console.log(event.images[3].url)
   }, [event])
-
-  // console.log(!event?? <Image source={event.images[3].url} />)
 
   if(!event)
     return (
@@ -31,27 +32,36 @@ export default function EventCard(props) {
         <Text>Loading...</Text>
       </View>
     )
+
   
   return (
     <TouchableOpacity 
       // onPress={() => navigation.navigate('eventList', {eventName: eventName, gameevents: gameevents })}
       style={ styles.container }
-    >
-      <Image source={{
-        uri: getUri()}} 
-        style={styles.backgroundImg}  
-      />
-      <Text style={styles.text}>
+    > 
+      <Text style={styles.eventTitle}>
         { event.name }
       </Text>
-      
+      <View style={styles.content}>
+        <CardData event={props.event} />
+        <View style={styles.dateCont}>
+          <Text style={styles.startDate}>
+            {currentDate.to(dateStart)}
+          </Text>
+        </View>
+        <View style={styles.imgCont}>
+          <Image source={{uri: event.images[2].url}} 
+            style={styles.backgroundImg}  
+          />
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
+    height: 250,
     width: '100%',
     alignContent: 'center',
     borderRadius: 5,
@@ -59,21 +69,40 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginVertical: '2%',
     backgroundColor: 'white',
-    backgroundColor: '#3C10EB',
   },
-  text: {
+  eventTitle: {
     textAlign: 'center',
     fontFamily: 'Baloo-Bold',
-    fontSize: 15,
-    zIndex: 1
+    fontSize: 17,
+    marginTop: '2%'
+  },
+  content: {
+    marginTop: '1%',
+    marginHorizontal: '5%',
+    flexDirection: 'row'
+  },
+  dateCont: {
+    position: 'absolute',
+    right: 0,
+    backgroundColor: '#3C10EB',
+    borderRadius: 5,
+    justifyContent: 'center'
+  },
+  startDate: {
+    fontFamily: 'Baloo-Reg',
+    color: 'white',
+    textAlign: 'center',
+    padding: 3,
+    paddingHorizontal: 15
+  },
+  imgCont: {
+    height: '100%',
+    width: '78%',
+    zIndex: -1,
+    marginTop: '7%',
   },
   backgroundImg: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    opacity: .3,
-    zIndex: 0,
-    resizeMode: 'stretch',
-    borderRadius: 5
+    flex: 1,
+    resizeMode: 'contain',
   }
 })

@@ -49,7 +49,7 @@ export default function GameCard ({gameName}) {
 const styles = StyleSheet.create({
   container: {
     width: '95%',
-    height: 90,
+    height: 120,
     marginVertical: '2%',
     borderRadius: 5,
     backgroundColor: '#fff',
