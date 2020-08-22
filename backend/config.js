@@ -8,5 +8,6 @@ export default {
   dbPass: process.env.DB_PASS,
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
-  secret: process.env.SECRET
+  secret: process.env.SECRET,
+  port: process.env.PORT || 3000
 };
