@@ -1,11 +1,20 @@
 import React from 'react';
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from 'react-native';
-import { Container } from '../common/styles';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
-import FontistoIcon from 'react-native-vector-icons/Fontisto'
-import Form from './../../components/common/Form';
+import { Container } from "../common/styles";
+import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontistoIcon from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useSelector, useDispatch } from 'react-redux';
+import Form from '../common/Form';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import config from '../../../config';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Profile() {
+export default function Signup() {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const signupInfo = useSelector(state => state.auth.signup);
+
   const handleFormChange = (stateName, text) => {
     dispatch({type: 'UPDATE_SIGNUP_INFO', key: stateName, value: text});
   }

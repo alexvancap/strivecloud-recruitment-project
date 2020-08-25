@@ -3,8 +3,11 @@ import routes from './routes';
 import { initDb, getDb } from './db';
 import config from './config';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
+app.use(cors())
+
 const port = config.port;
 
 // parse application/x-www-form-urlencoded

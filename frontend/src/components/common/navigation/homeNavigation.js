@@ -1,11 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import Home from '../../pages/home/Home';
-import LogoTitle from './LogoTitle';
-import { Button } from 'react-native';
 import GameList from '../../pages/home/GameList';
-import EventList from './../../pages/home/EventList';
-import Profile from '../../pages/Profile';
+import Home from '../../pages/home/Home';
+import EventList from '../../pages/home/EventList';
+import LogoTitle from './LogoTitle';
+import Login from '../../pages/Login';
 
 
 export default function HomeNavigation (props) {
@@ -23,7 +22,6 @@ export default function HomeNavigation (props) {
           headerTitle: props => <LogoTitle {...props} />,
           headerStyle: {
             backgroundColor: '#260a91',
-            height: 80,
             shadowColor: 'transparent'
           }
         }}
@@ -36,7 +34,6 @@ export default function HomeNavigation (props) {
           headerTitle: props => <LogoTitle {...props} />,
           headerStyle: {
             backgroundColor: '#260a91',
-            height: 80,
             shadowColor: 'transparent'
           }
         }}
@@ -49,7 +46,6 @@ export default function HomeNavigation (props) {
           headerTitle: props => <LogoTitle {...props} />,
           headerStyle: {
             backgroundColor: '#260a91',
-            height: 80,
             shadowColor: 'transparent'
           }
         }}

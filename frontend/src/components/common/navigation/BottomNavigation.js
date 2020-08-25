@@ -1,15 +1,28 @@
 // dit component zorgt voor het menu onderaan
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Login from '../../pages/Login';
 import Profile from '../../pages/Profile';
 import Search from '../../pages/Search';
-import HomeNavigation from './homeNavigation';
-
-
+import HomeNavigation from './HomeNavigation';
+import AuthNavigation from './AuthNavigation';
+import { useSelector } from 'react-redux';
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation () {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+
+  useEffect(() => {
+    console.log('io', isLoggedIn)
+  }, [isLoggedIn])
+
+  
+  if(!isLoggedIn){
+    return <AuthNavigation />
+  }
+
   return (
     <Tab.Navigator
       initialRouteName="Home"

@@ -16,9 +16,10 @@ const login = (req, res) => {
 }
 
 const register = (req, res) => {
-  let error = ''
   //I got the body trough bodyparser
   let { body } = req;
+  body.first_name = body.first_name
+  body.last_name = body.last_name
   // first I hash the password
   bcrypt.hash(body.password, 11, function(err, hash) {
     body.password = hash;
