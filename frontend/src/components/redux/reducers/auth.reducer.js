@@ -32,7 +32,6 @@ const authReducer = (state = initialState, action) => {
         }
       }
     case 'UPDATE_LOGGED_IN':
-      console.log(state)
       return {
         ...state,
         isLoggedIn: action.value

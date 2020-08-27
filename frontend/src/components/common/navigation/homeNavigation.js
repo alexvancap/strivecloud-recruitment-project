@@ -1,14 +1,24 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import EventList from '../../pages/home/EventList';
 import GameList from '../../pages/home/GameList';
 import Home from '../../pages/home/Home';
-import EventList from '../../pages/home/EventList';
+import Loading from '../Loading';
+import getFonts from './../../../hooks/getFonts';
 import LogoTitle from './LogoTitle';
-import Login from '../../pages/Login';
 
 
 export default function HomeNavigation (props) {
   const Stack = createStackNavigator();
+  const fetchedFonts = useSelector(state => state.main.fetchedFonts);
+
+  if(!fetchedFonts)
+    <Loading 
+      startAsync={getFonts}
+      onFinish={() => dispatch({type: 'UPDATE_FETCHED_FONTS', value: true})}
+      onError={console.warn}
+    />
 
   return (
     <Stack.Navigator 
@@ -19,7 +29,7 @@ export default function HomeNavigation (props) {
         component={Home} 
         options={{
           title: 'Home',
-          headerTitle: props => <LogoTitle {...props} />,
+          headerTitle: () => <LogoTitle />,
           headerStyle: {
             backgroundColor: '#260a91',
             shadowColor: 'transparent'
@@ -31,7 +41,7 @@ export default function HomeNavigation (props) {
         component={GameList} 
         options={{
           title: 'Games',
-          headerTitle: props => <LogoTitle {...props} />,
+          headerTitle: () => <LogoTitle />,
           headerStyle: {
             backgroundColor: '#260a91',
             shadowColor: 'transparent'
@@ -43,7 +53,7 @@ export default function HomeNavigation (props) {
         component={EventList} 
         options={{
           title: 'Events',
-          headerTitle: props => <LogoTitle {...props} />,
+          headerTitle: () => <LogoTitle />,
           headerStyle: {
             backgroundColor: '#260a91',
             shadowColor: 'transparent'

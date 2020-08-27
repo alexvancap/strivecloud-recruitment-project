@@ -1,79 +1,75 @@
-import React from 'react';
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontistoIcon from 'react-native-vector-icons/Fontisto';
+import { useSelector, useDispatch } from 'react-redux';
 import { Container } from '../common/styles';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
-import FontistoIcon from 'react-native-vector-icons/Fontisto'
+import config from './../../../config';
 import Form from './../../components/common/Form';
 
 export default function Profile() {
-  const handleFormChange = (stateName, text) => {
-    dispatch({type: 'UPDATE_SIGNUP_INFO', key: stateName, value: text});
-  }
+  const userInfo = useSelector(state => state.main.loggedinUser);
+  const profileInput = useSelector(state => state.profile);
+  const dispatch = useDispatch();
+
+  const handleFormChange = (stateName, text) =>
+    dispatch({type: 'UPDATE_PROFILE_INFO', key: stateName, value: text});
+
+  const handleLogout = () =>
+    dispatch({type: 'UPDATE_LOGGED_IN', value: false})
 
   const handleSubmit = async () => {
-    fetch(`${config.backendUrl}/register`, {
-      method: 'POST',
+    fetch(`${config.backendUrl}/users`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(signupInfo),
+      body: JSON.stringify({
+        id: userInfo.id, 
+        email: userInfo.email, 
+        username: userInfo.username, 
+        ...profileInput
+      }),
     })
-    .then(res => res.json())
-    .then(data => 
-      navigation.navigate('Login'))
-    .catch(error => {
-      console.error('Error:', error);
-    }); 
+    .then(e => e.json())
+    .then(res => {
+      if(res.success)
+        dispatch({type: 'MAIN_UPDATE_PROFILE_INF', value: res.data})
+    })
   }
+
 
   return (
     <Container>
       <View style={styles.formWrapper}>
         <KeyboardAvoidingView 
           behavior='padding' 
-          keyboardVerticalOffset={100} 
           style={styles.formCont}
-          keyboardVerticalOffset={100 + 64}
+          keyboardVerticalOffset={130}
         >
           <Form 
             label='Username' 
             icon={FontAwesomeIcon} 
             iconName='user' 
             handleChange={(e) => handleFormChange('username', e.nativeEvent.text)}
-            value={signupInfo.username}
+            value={profileInput.username}
+            defaultView={userInfo.username}
           />
           <Form 
             label='Email' 
             icon={FontistoIcon} 
             iconName='email' 
             handleChange={(e) => handleFormChange('email', e.nativeEvent.text)}
-            value={signupInfo.email}
-          />
-          <Form 
-            label='Firts name' 
-            icon={FontAwesomeIcon} 
-            iconName='user' 
-            handleChange={(e) => handleFormChange('firstName', e.nativeEvent.text)}
-            value={signupInfo.firstName}
-          />
-          <Form 
-            label='Last name' 
-            icon={FontAwesomeIcon} 
-            iconName='user' 
-            handleChange={(e) => handleFormChange('lastName', e.nativeEvent.text)}
-            value={signupInfo.lastName}
+            value={profileInput.email}
+            defaultView={userInfo.email}
           />
           <Form 
             label='Password' 
             icon={FontistoIcon} 
             iconName='key' 
             handleChange={(e) => handleFormChange('password', e.nativeEvent.text)}
-            value={signupInfo.password}
+            value={profileInput.password}
           />
-          <View style={{flex: 1}}>
-
-          </View>
-        </KeyboardAvoidingView>
           <View style={styles.buttonCont}>
             <TouchableOpacity 
               onPress={handleSubmit}
@@ -81,7 +77,14 @@ export default function Profile() {
             >
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={handleLogout}
+              style={styles.submitButton}
+            >
+              <Text style={styles.buttonText}>Logout</Text>
+            </TouchableOpacity>
           </View>
+        </KeyboardAvoidingView>
       </View>
     </Container>
   )
@@ -91,8 +94,8 @@ const styles = StyleSheet.create({
   formWrapper: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '4%',
   },
   formCont: {
     height: '95%',
@@ -100,18 +103,22 @@ const styles = StyleSheet.create({
     width: '95%',
     backgroundColor: 'white',
     borderRadius: 5,
+    paddingVertical: '5%'
   },
   buttonCont: {
     flex: 1,
+    width: '100%',
     alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: '-20%'
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   submitButton: {
     backgroundColor: '#3910DE',
-    padding: '8%',
+    paddingHorizontal: '6%',
+    paddingVertical: '4%',
     justifyContent: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   buttonText: {
     fontFamily: 'Baloo-Reg',

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -10,8 +10,10 @@ import { Container } from '../common/styles';
 import config from './../../../config';
 
 export default function Login() {
+  console.disableYellowBox = true;
   const dispatch = useDispatch();
   const loginInfo = useSelector(state => state.auth.login);
+  const loggedinUser = useSelector( state => state.main)
   const navigation = useNavigation();
 
   const handleFormChange = (state, text) => {
@@ -40,6 +42,10 @@ export default function Login() {
       console.error('Error:', error);
     }); 
   }
+
+  useEffect(() => {
+    console.log(loggedinUser)
+  }, [loggedinUser])
 
   const handleSignupPress = () => navigation.navigate('Signup');
   

@@ -17,6 +17,7 @@ export default function From(props) {
         onChange={props.handleChange}
         value={props.value}
         secureTextEntry={props.label === 'Password' || props.label === 'Repeat Password'}
+        defaultValue={props.defaultValue}
       />
     </View>
   )
@@ -25,6 +26,7 @@ export default function From(props) {
 const styles = StyleSheet.create({
   inputCont: {
     flex: 1,
+    marginBottom: '10%'
   },
   label: {
     fontSize: 25,

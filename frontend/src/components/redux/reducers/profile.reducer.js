@@ -1,19 +1,21 @@
 const initialState = {
-  username:'',
-  first_name:'',
-  last_name: '',
-  email: '',
-  password:''
+
 }
 
 const profileReducer = (state = initialState, action) => {
   switch(action.type){
-    case 'SAVE_EVENTS':
-      return {
+    case 'UPDATE_PROFILE_INFO':
+      const newState = {
         ...state,
-        events: action.events,
-        fetchedEvents: true
+        [action.key]: action.value
       }
+      if(newState.username === '')
+        delete newState.username
+      else if(newState.email === '')
+        delete newState.email
+      else if(newState.password === '')
+        delete newState.password
+      return newState
     default: return state
   }
 }

@@ -1,3 +1,3 @@
 export default {
-  backendUrl: 'http://7473c1aaee88.ngrok.io'
+  backendUrl: 'http://bda06f99b95e.ngrok.io'
 }

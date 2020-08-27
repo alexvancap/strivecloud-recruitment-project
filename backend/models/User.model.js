@@ -23,10 +23,30 @@ const create = (values, response) => {
     'INSERT INTO users (username, email, first_name, last_name, password)\
     VALUES(?, ?, ?, ?, ?)',
     [values.username, values.email, values.firstName, values.lastName, values.password],
-    (err, res) => {
-      response(err, res)
-    }
+    (err, res) => response(err, res)
   );
 };
 
-export default { getById, getByUsername, create };
+const update = (values, response) => {
+  console.log(values)
+  const db = getDb();
+
+  if(!values.password)
+    db.query(
+      'UPDATE users \
+      SET username = ?, email = ? \
+      WHERE id = ?',
+      [values.username, values.email, values.id],
+      (err, res) => response(err, res)
+    )
+  else
+    db.query(
+      'UPDATE users \
+      SET username = ?, email = ?, password = ? \
+      WHERE id = ?',
+      [values.username, values.email, values.password, values.id],
+      (err, res) => response(err, res)
+    )
+}
+
+export default { getById, getByUsername, create, update };

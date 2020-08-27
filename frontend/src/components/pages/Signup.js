@@ -1,23 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Container } from "../common/styles";
-import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useSelector, useDispatch } from 'react-redux';
-import Form from '../common/Form';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
 import config from '../../../config';
-import { useNavigation } from '@react-navigation/native';
+import Form from '../common/Form';
+import { Container } from "../common/styles";
 
 export default function Signup() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const signupInfo = useSelector(state => state.auth.signup);
 
-  const handleFormChange = (stateName, text) => {
+  const handleFormChange = (stateName, text) =>
     dispatch({type: 'UPDATE_SIGNUP_INFO', key: stateName, value: text});
-  }
 
   const handleSubmit = async () => {
     fetch(`${config.backendUrl}/register`, {
@@ -59,7 +57,7 @@ export default function Signup() {
             value={signupInfo.email}
           />
           <Form 
-            label='Firts name' 
+            label='First name' 
             icon={FontAwesomeIcon} 
             iconName='user' 
             handleChange={(e) => handleFormChange('firstName', e.nativeEvent.text)}

@@ -37,6 +37,23 @@ const register = (req, res) => {
   });
 }
 
+const update = (req, res) => {
+  let { body } = req;
+  if(body.password){
+    bcrypt.hash(body.password, 11, function(err, hash) {
+      body.password = hash;
+      User.update(body, (err, response) => {
+        if(!err) return res.json({success: true, data: body})
+        return res.status(500).json(err)
+      })
+    })
+  }else
+    User.update(body, (err, response) => {
+      if(!err) return res.json({success: true, data: body})
+      return res.status(500).json(err)
+    })
+}
+
 export default {
-  login, register
+  login, register, update
 }

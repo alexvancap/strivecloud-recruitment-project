@@ -1,5 +1,6 @@
 const initialState = {
   loggedinUser: {
+    id: '',
     username: '',
     email: '',
     firstName: '',
@@ -7,8 +8,7 @@ const initialState = {
     email: '',
     createdAt: ''
   },
-  loading: false,
-  fetchedFonts: false,
+  fetchedFonts: false
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -18,22 +18,31 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         loading: !state.loading
       }
-    case 'UPDATE_FETCHED_FONTS':
-      return {
-        ...state,
-        fetchedFonts: !state.fetchedFonts
-      }
     case 'UPDATE_LOGGEDIN_USER':
-      console.log(action.value)
       return {
         ...state,
-        loggedInUser: {
+        loggedinUser: {
+          ...state.loggedinUser,
+          id: action.value.id,
           username: action.value.username,
           email: action.value.email,
           firstName: action.value.first_name,
           lastName: action.value.last_name,
           createdAt: action.value.created_at
         }
+      }
+     case 'MAIN_UPDATE_PROFILE_INF':
+      return {
+        ...state,
+        loggedinUser: {
+          ...state.loggedinUser,
+          ...action.value
+        }
+      }
+    case 'UPDATE_FETCHED_FONTS':
+      return {
+        ...state,
+        fetchedFonts: action.value
       }
     default: return state
   }

@@ -1,23 +1,16 @@
 // dit component zorgt voor het menu onderaan
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Login from '../../pages/Login';
-import Profile from '../../pages/Profile';
-import Search from '../../pages/Search';
-import HomeNavigation from './HomeNavigation';
-import AuthNavigation from './AuthNavigation';
 import { useSelector } from 'react-redux';
+import AuthNavigation from './AuthNavigation';
+import HomeNavigation from './HomeNavigation';
+import ProfileNavigation from './ProfileNavigation';
+import SearchNavigation from './SearchNavigation';
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation () {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-
-
-  useEffect(() => {
-    console.log('io', isLoggedIn)
-  }, [isLoggedIn])
-
   
   if(!isLoggedIn){
     return <AuthNavigation />
@@ -44,7 +37,7 @@ export default function BottomNavigation () {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileNavigation}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
@@ -54,7 +47,7 @@ export default function BottomNavigation () {
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchNavigation}
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({ color, size }) => (

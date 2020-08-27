@@ -3,9 +3,9 @@
 import React from 'react';
 import { View, Image, Button, StyleSheet, Text } from 'react-native';
 
-export default function Container (props) {
+export default function Container () {
   return (
-      <Image style={ styles.headerImg } source={ require('./../../../assets/img/Strivecloud_logosite.png') } />
+    <Image style={ styles.headerImg } source={ require('./../../../assets/img/Strivecloud_logosite.png') } />
   )
 }
 

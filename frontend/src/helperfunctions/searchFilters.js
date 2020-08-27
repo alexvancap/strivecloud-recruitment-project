@@ -6,11 +6,20 @@ const nameFilter = (input, arr) => {
   })
 }
 
-const getEventsByGameName = (gameName, events) => {
-  return events.filter(event => event.game === gameName)
+const getEventsByGameName = (gameName, events) =>
+  events.filter(event => event.game.includes(gameName))
+
+const getGamesByName = (name, games) => {
+  console.log(games)
+  return games.filter(game => game.includes(name))
 }
+
+const getEventsByTournamentName = (input, events) =>
+  events.filter(event => event.name.includes(input))
 
 export {
   nameFilter,
-  getEventsByGameName
+  getEventsByGameName,
+  getEventsByTournamentName,
+  getGamesByName
 }
